@@ -4,17 +4,17 @@ import { take, map, mergeMap } from 'rxjs/operators';
 import { debugTap } from './operators/debugTap';
 
 // Define source Observables
-const source1$ = interval(1000).pipe(
+const secs$ = interval(1000).pipe(
   take(3),
-  debugTap('source1$', 'interval'),
+  debugTap('secs$', 'interval'),
   map((x) => x * 2),
-  debugTap('source1$', 'map')
+  debugTap('secs$', 'map')
 );
 
 const source2$ = of(10, 20, 30).pipe(
   debugTap('source2$', 'of'),
   mergeMap((x) =>
-    source1$.pipe(debugTap('source2$', 'mergeMap'))
+    secs$.pipe(debugTap('source2$', 'mergeMap'))
   )
 );
 
